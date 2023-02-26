@@ -1,5 +1,6 @@
 package com.api.projetoifba.entity;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,13 +18,13 @@ public class Aluno{
     private String nome;
 
     @Id
-    @Column(nullable = false,length = 12)
+    @Column(nullable = false,length = 12,unique = true)
     private String matricula;
 
-    @Column(nullable = false,length = 11)
+    @Column(nullable = false,length = 11,unique = true)
     private String cpf;
 
-    @Column(nullable = false,length = 50)
+    @Column(nullable = false,length = 50,unique = true)
     private String email;
 
     @Column(nullable = false,length = 30)
@@ -32,20 +33,24 @@ public class Aluno{
     @Column(nullable = false,length = 1)
     private Character sexo; 
 
+    @Column(name = "data_de_nascimento",nullable = false)
+    private LocalDate dataDeNascimento;
+
     @OneToMany
     private List<Endereço> enderecos = new ArrayList<>();
 
     public Aluno(){}
 
     public Aluno(String nome, String matricula, String cpf, String email, String curso, Character sexo,
-            Endereço endereço) {
+            LocalDate dataDeNascimento, List<Endereço> enderecos) {
         this.nome = nome;
         this.matricula = matricula;
         this.cpf = cpf;
         this.email = email;
         this.curso = curso;
         this.sexo = sexo;
-        enderecos.add(endereço);
+        this.dataDeNascimento = dataDeNascimento;
+        this.enderecos = enderecos;
     }
 
     public String getNome() {
@@ -104,9 +109,19 @@ public class Aluno{
         this.enderecos = enderecos;
     }
 
+    
+    public LocalDate getDataDeNascimento() {
+        return dataDeNascimento;
+    }
+
+    public void setDataDeNascimento(LocalDate dataDeNascimento) {
+        this.dataDeNascimento = dataDeNascimento;
+    }
+
     @Override
     public String toString() {
         return "Aluno [nome=" + nome + ", matricula=" + matricula + ", cpf=" + cpf + ", email=" + email + ", curso="
-                + curso + ", sexo=" + sexo + ", enderecos=" + enderecos + "]";
+                + curso + ", sexo=" + sexo + ", dataDeNascimento=" + dataDeNascimento + ", enderecos=" + enderecos
+                + "]";
     }
 }

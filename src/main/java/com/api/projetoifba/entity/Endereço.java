@@ -4,6 +4,8 @@ import java.util.UUID;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
@@ -12,6 +14,7 @@ import jakarta.persistence.Table;
 public class Endereço {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private UUID id;
     @Column(nullable = false,length = 20)
     private String rua;
@@ -24,8 +27,7 @@ public class Endereço {
 
     public Endereço(){}
 
-    public Endereço(UUID id, String rua, Integer numero, String cep, String complemento) {
-        this.id = id;
+    public Endereço(String rua, Integer numero, String cep, String complemento) {
         this.rua = rua;
         this.numero = numero;
         this.cep = cep;
